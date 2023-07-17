@@ -23,8 +23,20 @@ namespace dotnetcore
 
             var client = new SecretClient(new Uri(kvUri), new DefaultAzureCredential(), options);
             KeyVaultSecret secret = client.GetSecret(secretName);
-
             Console.WriteLine(secret.Value);
+
+            Console.WriteLine("Enter New Secret >");
+            string secretValue = Console.ReadLine();
+            Console.WriteLine("Set Secret");
+            client.SetSecret(secretName, secretValue);
+
+            Console.WriteLine("delete Secret");
+            client.StartDeleteSecret(secretName);
+
+            Console.WriteLine("verify - delete");
+            Console.WriteLine(secret.Value);
+
+
 
         }
     }
